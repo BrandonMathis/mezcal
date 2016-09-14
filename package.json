@@ -71,6 +71,8 @@
   },
   "dependencies": {
     "autoprefixer": "^6.3.1",
+    "lodash": "^4.15.0",
+    "lodash-inflection": "^1.4.1",
     "lost": "^6.7.1",
     "react": "^15.2.1",
     "react-addons-update": "^15.3.1",

@@ -12,6 +12,10 @@ const newMezcalInitialState = {
   region: {
     value: '',
     valid: true
+  },
+  agave: {
+    value: '',
+    valid: true
   }
 };
 
@@ -30,6 +34,8 @@ class Main extends Component {
   clearForm() {
     ReactDOM.findDOMNode(this.refs.name).value = '';
     ReactDOM.findDOMNode(this.refs.region).value = '';
+    ReactDOM.findDOMNode(this.refs.agave).value = '';
+    ReactDOM.findDOMNode(this.refs.description).value = '';
   }
 
   validate(mezcal) {
@@ -42,18 +48,24 @@ class Main extends Component {
     newMezcal = update(newMezcal, {
       name: {$set: { value: mezcal.name, valid: nameValid }}
     });
+    const agaveValid = (mezcal.agave.length > 1);
+    newMezcal = update(newMezcal, {
+      agave: {$set: { value: mezcal.agave, valid: agaveValid }}
+    });
     this.setState({
       mezcals: this.state.mezcals,
       newMezcal: newMezcal
     });
-    return nameValid && regionValid;
+    return nameValid && regionValid && agaveValid;
   }
 
   newMezcal(event) {
     event.preventDefault();
     const mezcal = {
       name: ReactDOM.findDOMNode(this.refs.name).value,
-      region: ReactDOM.findDOMNode(this.refs.region).value
+      region: ReactDOM.findDOMNode(this.refs.region).value,
+      agave: ReactDOM.findDOMNode(this.refs.agave).value,
+      description: ReactDOM.findDOMNode(this.refs.description).value
     };
     if (!this.validate(mezcal)) {
       return;
@@ -89,6 +101,29 @@ class Main extends Component {
             />
             <FormControl.Feedback />
           </FormGroup>
+          <FormGroup validationState={this.state.newMezcal.agave.valid ? null : 'error'}>
+            <ControlLabel>Agave</ControlLabel>
+            <FormControl
+              componentClass="select"
+              placeholder="Select Agave"
+              ref="agave"
+              defaultValue="">
+              <option value="" disabled>Select Agave</option>
+              <option value="espadin">Espadin</option>
+              <option value="arroqueño">Arroqueño</option>
+              <option value="cirial">Cirial</option>
+              <option value="barril">Barril</option>
+              <option value="mexicano">Mexicano</option>
+              <option value="cincoañero">Cincoañero</option>
+            </FormControl>
+          </FormGroup>
+          <FormGroup>
+            <ControlLabel>Description</ControlLabel>
+            <FormControl
+              componentClass="textarea"
+              ref="description"
+              placeholder="Description"/>
+          </FormGroup>
           <FormGroup>
             <Button type="submit" bsStyle="default" bsSize="small">
               Submit
@@ -101,12 +136,19 @@ class Main extends Component {
             <tr>
               <th>Name</th>
               <th>Region</th>
+              <th>Agave</th>
+              <th>Description</th>
             </tr>
           </thead>
           <tbody>
             {mezcals.map((mezcal, i) => {
               return (
-                <Mezcal name={mezcal.name} region={mezcal.region} key={i}/>
+                <Mezcal
+                  name={mezcal.name}
+                  region={mezcal.region}
+                  agave={mezcal.agave}
+                  description={mezcal.description}
+                  key={i}/>
               );
             })}
           </tbody>
