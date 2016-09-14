@@ -1,11 +1,11 @@
 import React from 'react';
 import {Route, Router, browserHistory} from 'react-router';
-import HelloWorld from './hello-world/HelloWorld';
+import Main from './main/Main';
 
 export default () => {
   return (
     <Router history={browserHistory}>
-      <Route path="/" component={HelloWorld} />
+      <Route path="/" component={Main} />
     </Router>
   );
 };
