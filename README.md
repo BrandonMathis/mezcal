@@ -1,5 +1,5 @@
-# web-boilerplate
-A template for new front-end projects.
+# Mezcal
+An application for ranking and storing Mezcals
 
 ## Using
 1. Clone the repo
