@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import helloWorld from './hello-world/helloWorldReducer';
+import mezcalApp from './new-mezcal/mezcalReducer';
 
 export default combineReducers({
-  helloWorld
+  mezcalApp
 });
